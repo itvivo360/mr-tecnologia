@@ -1,0 +1,48 @@
+<?php
+
+namespace App\Models;
+
+use App\Enums\StockMovementType;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
+
+class StockMovement extends Model
+{
+    public const UPDATED_AT = null;
+
+    protected $fillable = [
+        'product_id',
+        'user_id',
+        'type',
+        'quantity',
+        'stock_after',
+        'reason',
+        'reference_type',
+        'reference_id',
+    ];
+
+    protected function casts(): array
+    {
+        return [
+            'type' => StockMovementType::class,
+            'quantity' => 'integer',
+            'stock_after' => 'integer',
+        ];
+    }
+
+    public function product(): BelongsTo
+    {
+        return $this->belongsTo(Product::class)->withTrashed();
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function reference(): MorphTo
+    {
+        return $this->morphTo();
+    }
+}

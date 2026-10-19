@@ -1,0 +1,100 @@
+:root {
+    /* Marca Mr Tecnología (colores del logo) */
+    --logo-green: #93c722;
+    --logo-blue: #1fa0cb;
+    --logo-purple: #8a1fd0;
+
+    /* Interfaz */
+    --ink: #14212b;
+    --paper: #f5f7f8;
+    --brand: #0e6f99;        /* azul del logo oscurecido: contraste AA con texto blanco */
+    --brand-dark: #0b3a50;
+    --brand-tint: #e4f4f9;
+    --signal: var(--logo-purple);
+    --line: #dde3e6;
+    --muted: #5d6b74;
+    --surface: #ffffff;
+    --bg: var(--paper);
+    --radius: 10px;
+
+    --font: 'Sora', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+    /* Element Plus: color primario de la marca */
+    --el-color-primary: #0e6f99;
+    --el-color-primary-light-3: #569ab8;
+    --el-color-primary-light-5: #86b7cc;
+    --el-color-primary-light-7: #b7d4e0;
+    --el-color-primary-light-8: #cfe2eb;
+    --el-color-primary-light-9: #e7f1f5;
+    --el-color-primary-dark-2: #0b597a;
+    --el-border-radius-base: 8px;
+    --el-font-family: var(--font);
+    --el-text-color-primary: var(--ink);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+    margin: 0;
+    font-family: var(--font);
+    color: var(--ink);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+a { color: var(--brand); text-decoration: none; }
+a:hover { text-decoration: underline; }
+:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+
+h1, h2, h3 { line-height: 1.15; margin: 0 0 0.5em; font-weight: 700; letter-spacing: -0.02em; }
+h1 { font-size: 1.6rem; letter-spacing: -0.025em; }
+h2 { font-size: 1.2rem; }
+
+.container { width: min(1200px, 100% - 32px); margin-inline: auto; }
+.page { padding-block: 28px 64px; }
+.page-header { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+.page-header h1 { margin: 0; }
+
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; }
+.grid { display: grid; gap: 16px; }
+.grid-2 { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+.grid-stats { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+.row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.spread { justify-content: space-between; }
+.stack > * + * { margin-top: 12px; }
+
+.muted { color: var(--muted); }
+.small { font-size: 0.85rem; }
+.mono { font-family: ui-monospace, 'SFMono-Regular', Menlo, monospace; }
+.mt { margin-top: 12px; }
+.mb { margin-bottom: 12px; }
+.right { text-align: right; }
+.price { font-weight: 700; font-variant-numeric: tabular-nums; }
+.danger { color: #b91c1c; }
+.success { color: #15803d; }
+
+.stat-label { color: var(--muted); font-size: 0.85rem; }
+.stat-value { font-size: 1.6rem; font-weight: 700; margin-top: 4px; font-variant-numeric: tabular-nums; }
+
+.thumb {
+    width: 48px; height: 48px; border-radius: 8px; object-fit: cover;
+    background: var(--bg); border: 1px solid var(--line); flex-shrink: 0;
+}
+.img-placeholder {
+    display: grid; place-items: center; color: #9ca3af; background: #eef0ec;
+}
+
+.el-table { --el-table-header-bg-color: #fafafa; }
+.el-card { border-radius: var(--radius); }
+
+@media (max-width: 640px) {
+    .page { padding-block: 18px 48px; }
+    h1 { font-size: 1.35rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+html { scroll-behavior: smooth; }
