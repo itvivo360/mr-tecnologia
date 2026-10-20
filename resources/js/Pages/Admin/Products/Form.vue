@@ -3,6 +3,7 @@ import { computed, ref } from 'vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import BarcodeInput from '@/Components/BarcodeInput.vue';
+import MoneyInput from '@/Components/MoneyInput.vue';
 import ProductImage from '@/Components/ProductImage.vue';
 
 const props = defineProps({ product: Object, categories: Array, prefill: Object, defaultMinStock: Number });
@@ -79,7 +80,7 @@ const submit = () => {
             <div class="stack">
                 <div class="card">
                     <el-form-item label="Precio (CLP)" :error="form.errors.price">
-                        <el-input-number v-model="form.price" :min="0" :step="1000" :controls="false" style="width: 100%" />
+                        <MoneyInput v-model="form.price" />
                     </el-form-item>
                     <el-form-item v-if="!editing" label="Stock inicial" :error="form.errors.initial_stock">
                         <el-input-number v-model="form.initial_stock" :min="0" style="width: 100%" />
