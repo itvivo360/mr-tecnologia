@@ -71,9 +71,15 @@ class ProductController extends Controller
         $product = DB::transaction(function () use ($data, $request, $stock) {
             $product = Product::create([
                 ...Arr::except($data, ['image', 'remove_image', 'initial_stock']),
+                // Sin SKU: valor temporal único hasta conocer el id (la columna es NOT NULL y única).
+                'sku' => $data['sku'] ?? 'TMP-'.Str::uuid(),
                 'slug' => $this->uniqueSlug($data['name']),
                 'image_path' => $request->file('image')?->store('products', 'public'),
             ]);
+
+            if (empty($data['sku'])) {
+                $product->assignGeneratedSku();
+            }
 
             if (! empty($data['initial_stock'])) {
                 $stock->receive($product, (int) $data['initial_stock'], $request->user(), 'Stock inicial');
@@ -137,7 +143,14 @@ class ProductController extends Controller
             $attributes['slug'] = $this->uniqueSlug($data['name'], $product->id);
         }
 
-        $product->update($attributes);
+        // Si se borró el SKU al editar, se vuelve a generar.
+        if (empty($attributes['sku'])) {
+            unset($attributes['sku']);
+            $product->update($attributes);
+            $product->assignGeneratedSku();
+        } else {
+            $product->update($attributes);
+        }
 
         if ($oldImage && $oldImage !== $product->image_path) {
             Storage::disk('public')->delete($oldImage);

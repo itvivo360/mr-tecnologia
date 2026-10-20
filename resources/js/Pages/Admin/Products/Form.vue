@@ -59,8 +59,8 @@ const submit = () => {
                     <el-input v-model="form.name" maxlength="255" />
                 </el-form-item>
                 <div class="row" style="align-items: flex-start">
-                    <el-form-item label="SKU" :error="form.errors.sku" style="flex: 1; min-width: 160px">
-                        <el-input v-model="form.sku" class="mono" placeholder="PRD-0001" />
+                    <el-form-item label="SKU (opcional)" :error="form.errors.sku" style="flex: 1; min-width: 160px">
+                        <el-input v-model="form.sku" class="mono" placeholder="Se genera solo, ej. PRD-0014" clearable />
                     </el-form-item>
                     <el-form-item label="Categoría" :error="form.errors.category_id" style="flex: 1; min-width: 160px">
                         <el-select v-model="form.category_id" clearable placeholder="Sin categoría" style="width: 100%">

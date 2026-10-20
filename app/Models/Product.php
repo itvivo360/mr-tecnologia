@@ -69,6 +69,24 @@ class Product extends Model
         return $query->where('is_active', true);
     }
 
+    /**
+     * SKU automático a partir del id (PRD-0014), igual que la numeración inicial.
+     * Si ya existe (por ejemplo, alguien lo escribió a mano), agrega un sufijo.
+     */
+    public function assignGeneratedSku(): void
+    {
+        $base = sprintf('PRD-%04d', $this->getKey());
+        $sku = $base;
+        $n = 2;
+
+        while (static::withTrashed()->where('sku', $sku)->whereKeyNot($this->getKey())->exists()) {
+            $sku = "{$base}-{$n}";
+            $n++;
+        }
+
+        $this->forceFill(['sku' => $sku])->save();
+    }
+
     public function scopeFeatured(Builder $query): Builder
     {
         return $query->where('is_featured', true);

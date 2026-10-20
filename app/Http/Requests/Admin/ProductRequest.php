@@ -29,7 +29,7 @@ class ProductRequest extends FormRequest
 
         return [
             'name' => ['required', 'string', 'max:255'],
-            'sku' => ['required', 'string', 'max:64', 'regex:/^[A-Z0-9._-]+$/', Rule::unique('products', 'sku')->ignore($product)],
+            'sku' => ['nullable', 'string', 'max:64', 'regex:/^[A-Z0-9._-]+$/', Rule::unique('products', 'sku')->ignore($product)],
             'barcode' => [
                 'nullable', 'string', 'max:64', 'regex:/^[\x21-\x7E]+$/',
                 Rule::unique('products', 'barcode')->ignore($product)->whereNull('deleted_at'),
